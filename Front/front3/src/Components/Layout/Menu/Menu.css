@@ -1,0 +1,7 @@
+.Menu {
+	color: white;
+}
+.Menu>a{
+    text-decoration: none;
+    color:white;
+}
