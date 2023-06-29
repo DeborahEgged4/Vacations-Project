@@ -29,12 +29,14 @@ const VacationsList = (props: {isAdmin: boolean}) => {
         getVacations();
     }, [])
 
+    
+
     return (
         <div className="VacationsList"
              style={{
                  display: "flex",
                  flexDirection: "row",
-                 gap: "20px"
+                 gap: "10px"
              }}
         >
 
@@ -44,16 +46,16 @@ const VacationsList = (props: {isAdmin: boolean}) => {
                     style={{
                         border: "1px solid black",
                         borderRadius: "10px",
-                        width: "300px",
+                        width: "200px",
                         backgroundColor: "rgba(169,169,169,0.57)",
                     }}
                 >
-                    <h3>{item.destination}</h3>
-                    <img src={item.image} width={'200px'} alt={item.destination}/>
-                    <p>{item.description}</p>
-                    <p>{item.price}</p>
-                    <p>{`${item.startDate}`}</p>
-                    <p>{`${item.endDate}`}</p>
+                    <h3>Destination:{item.destination}</h3>
+                    <img src={item.image} width={'150px'} />
+                    <p>Description{item.description}</p>
+                    <p>Price:{item.price}</p>
+                    <p>Start Date:{`${item.startDate}`}</p>
+                    <p>End Date:{`${item.endDate}`}</p>
                 </div>
             ))}
         </div>

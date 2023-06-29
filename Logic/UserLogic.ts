@@ -12,14 +12,6 @@ const createUsersTable = async () => {
     PRIMARY KEY (userId));`;
     await dal_mysql.execute(SQLcommand);
 
-    const admin = new User(0, 'admin', 'admin', 'admin@google.com', 'admin', true);
-    await register(admin, true);
-
-    const user1 = new User(0, 'user1', 'user1', 'user1@google.com', 'user1', false);
-    await register(user1);
-
-    const user2 = new User(0, 'user2', 'user2', 'user2@google.com', 'user2', false);
-    await register(user2);
 };
 
 const dropUsersTable = async () => {

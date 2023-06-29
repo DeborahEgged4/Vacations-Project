@@ -1,3 +1,7 @@
-.VacationsList {
-	
+.VacationsList{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: auto;
+    max-height: 80vh;
 }

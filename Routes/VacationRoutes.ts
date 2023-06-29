@@ -22,7 +22,7 @@ vacationRouter.get(
   }
 );
 
-const mockVacations: IVacation[] = [
+/*const mockVacations: IVacation[] = [
     {
         vacationId: 1,
         destination: "London",
@@ -51,10 +51,11 @@ const mockVacations: IVacation[] = [
         endDate: new Date("2021-10-10"),
         price: 1000,
     }
-]
+]*/
 
-vacationRouter.get('/vacations', (req, res, next) => {
-    res.status(200).json(mockVacations);
+vacationRouter.get('/vacations',  async (req:Request, res:Response, next:NextFunction) => {
+  const vacations: Vacation[] = await VacationLogic.getAllVacations(+(req.params.userId));
+    res.status(200).json(vacations);
 })
 
 

@@ -12,7 +12,7 @@ const createVacationsTable = async () => {
         startDate DATE NOT NULL,
         endDate DATE NOT NULL,
         price INT NOT NULL,
-        image VARCHAR(100) NOT NULL,
+        image VARCHAR(500) NOT NULL,
         PRIMARY KEY (vacationId));`;
   await dal_mysql.execute(SQLcommand);
 
@@ -63,7 +63,7 @@ const deleteVacation = async (vacationId: number) => {
 };
 
 const getAllVacations = async (userId: number) => {
-  const SQLcommand = `SELECT
+  /*const SQLcommand = `SELECT
   v.vacationId,v.destination,v.description,v.startDate,v.endDate,v.price,v.image,
   COUNT(f.userId) AS followersCount,
     CASE f.userId
@@ -75,13 +75,14 @@ FROM
   LEFT JOIN followers f 
   ON v.vacationId = f.vacationId
 GROUP BY
-  v.vacationId, isFollow`;
-  const SQLcommandCombined = `SELECT
+  v.vacationId, isFollow`;*/
+  const SQLcommand = "SELECT * FROM project3.vacations";
+  /*const SQLcommandCombined = `SELECT
   innerTable.vacationId,innerTable.destination,innerTable.description,innerTable.startDate,innerTable.endDate,innerTable.price,innerTable.image,
   SUM(innerTable.followersCount) as followersCount,
     SUM(innerTable.isFollow) as isFollow
-    FROM (${SQLcommand}) innerTable group by innerTable.vacationId;`;
-  return await dal_mysql.execute(SQLcommandCombined);
+    FROM (${SQLcommand}) innerTable group by innerTable.vacationId;`;*/
+  return await dal_mysql.execute(SQLcommand);
 };
 
 const getSingleVacation = async (vacationId: number): Promise<Vacation> => {

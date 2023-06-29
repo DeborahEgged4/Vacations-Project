@@ -36,6 +36,8 @@ const createFollowersTable = async () => {
     return await dal_mysql.execute(SQLcommand);
   };
 
+
+
   export default {
     dropFollowersTable,
     createFollowersTable,

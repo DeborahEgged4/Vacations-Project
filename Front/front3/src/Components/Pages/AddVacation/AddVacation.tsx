@@ -1,24 +1,19 @@
-/*import {Button, TextField} from "@mui/material";
-import "./AddVacations.css";
+import {Button, TextField} from "@mui/material";
+import "./AddVacation.css";
 import {useNavigate} from "react-router-dom";
-import {useForm} from "react-hook-form";
 import React, {useState} from "react";
 import Vacation from "../../../interfaces/Vacation";
 
 
-const AddVacation = (newVacation: Vacation) => {
+const AddVacation = () => {
     // use form for form validation
-    const {
-        register, 
-        handleSubmit,
-        formState: {errors},
-    } = useForm();
 
-    const [destination, setdestination] = useState("");
+    const [destination, setdestination] = useState(""); 
     const [description, setdescription] = useState("");
-    const [startOn, setstartOn] = useState("");
-    const [endOn, setendOn] = useState("");
-    const [price, setprice] = useState("");
+    const [startDate, setstartDate] = useState("");
+    const [endDate, setendDate] = useState("");
+    const [price, setprice] = useState(0);
+    const [image,setImage] = useState("");
 
     const send = async (event: any) => {
         try {
@@ -31,7 +26,7 @@ const AddVacation = (newVacation: Vacation) => {
             }
             
             // check endOn>startOn
-            if (startOn>endOn) {
+            if (startDate>endDate) {
                 alert("The end date can not be earlier than the start date");
                 return;
             }
@@ -40,9 +35,17 @@ const AddVacation = (newVacation: Vacation) => {
 
             console.log('1')
 
-            const res = await fetch(`http://localhost:8080/user/login`, {
+            const res = await fetch(`http://localhost:8080/vacation/addVacation`, {
                 method: "POST",
-                body: JSON.stringify({email, password}),
+                body: JSON.stringify({
+           
+                 destination,
+                  description,
+                   startDate,
+                   endDate,
+                   price,
+                   image,
+                }),
                 headers: {
                     "Content-Type": "application/json",
                 }
@@ -73,47 +76,66 @@ const AddVacation = (newVacation: Vacation) => {
     const navigate = useNavigate();
     return (
         <div>
-            <form>
+            <form className="Box">
             <label htmlFor='firstNamelRegisterInput'>
                     destination:
                 </label>
                 <input
                     value={destination}
                     onChange={event => setdestination(event.target.value)}
-                    type="firstName" name="firstNameRegisterInput" id='firstNameRegisterInput'/>
+                    type="text" name="firstNameRegisterInput" id='firstNameRegisterInput'/>
+                    <br/>
+                    <br/>
                 <label htmlFor='lastNameRegisterInput'>
                     description:
                 </label>
                 <input
                     value={description}
                     onChange={event => setdescription(event.target.value)}
-                    type="lastName" name="LastNameRegisterInput" id='LastNameRegisterInput'/>
+                    type="text" name="LastNameRegisterInput" id='LastNameRegisterInput'/>
+                    <br/>
+                    <br/>
                 <label htmlFor='emailLoginInput'>
                     start On:
                 </label>
                 <input
-                    value={startOn}
-                    onChange={event => setendOn(event.target.value)}
-                    type="email" name="emailLoginInput" id='emailLoginInput'/>
+                    value={startDate}
+                    onChange={event => setstartDate(event.target.value)}
+                    type="date" name="emailLoginInput" id='emailLoginInput'/>
+                    <br/>
+                    <br/>
                 <label htmlFor='passwordLoginInput'>
                     end On:
                 </label>
                 <input
-                    value={endOn}
-                    onChange={event => setendOn(event.target.value)}
-                    type="password" name="passwordLoginInput" id='passwordLoginInput'/>
-                <button onClick={(event)=>send(event)}>Register</button>
+                    value={endDate}
+                    onChange={event => setendDate(event.target.value)}
+                    type="date" name="passwordLoginInput" id='passwordLoginInput'/>
+                    <br/>
+                    <br/>
+                <label htmlFor='passwordLoginInput'>
+                    Image:
+                </label>
+                <input
+                    value={image}
+                    onChange={event => setendDate(event.target.value)}
+                    type="text" name="passwordLoginInput" id='passwordLoginInput'/>
+                    <br/>
+                    <br/>
+
                 <label htmlFor='passwordLoginInput'>
                     Price:
                 </label>
                 <input
                     value={price}
-                    onChange={event => setprice(event.target.value)}
-                    type="password" name="passwordLoginInput" id='passwordLoginInput'/>
-                <button onClick={(event)=>send(event)}>Register</button>
+                    onChange={event => setprice(+(event.target.value))}
+                    type="number" name="passwordLoginInput" id='passwordLoginInput'/>
+                    <br/>
+                    <br/>
+                    <button onClick={(event)=>send(event)}>Add Vacation</button>
             </form>
         </div>
     );
 }
 
-export default AddVacation;*/
+export default AddVacation; 
