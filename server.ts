@@ -10,6 +10,10 @@ import FollowerLogic from "./Logic/FollowerLogic";
 import UserLogic from "./Logic/UserLogic";
 import VacationLogic from "./Logic/VacationLogic";
 
+
+const MOCK_DATA = true; // change to false to use real data from actual SQL database
+
+
 //create server
 const server = express();
 

@@ -1,21 +1,20 @@
 import { NavLink } from "react-router-dom";
 import "./Menu.css";
 
-function Menu(): JSX.Element {
+function Menu(props: {user?: any}): JSX.Element {
     return (
         <div className="Menu">
 			<h2>Menu</h2>
-            <hr />
-            <NavLink to="/login">Login</NavLink>
+            {  !props.user && <><hr />
+           <NavLink to="/login">Login</NavLink>
+            <br /></>}
+            {!props.user && <><br />
+             <NavLink to="/register">Register</NavLink>
+            <br /></>}
             <br />
-            <br />
-            <NavLink to="/register">Register</NavLink>
-            <br />
-            <br />
-            <NavLink to="/addVacation">AddVacation</NavLink>
+            {props?.user?.isAdmin && <NavLink to="/addVacation">AddVacation</NavLink>}
             <br/>
             <br/>
-            <NavLink to="/editVacation">EditVacation</NavLink>
         </div>
     );
 }

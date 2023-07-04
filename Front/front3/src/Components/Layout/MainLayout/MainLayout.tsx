@@ -17,7 +17,9 @@ function MainLayout(): JSX.Element {
                 <Header />
             </header>
             <aside>
-                <Menu />
+                <Menu
+                    user={user}
+                />
             </aside>
             <main>
                 <MainRouting

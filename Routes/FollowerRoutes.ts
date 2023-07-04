@@ -25,4 +25,11 @@ followerRouter.post(
     }
   );
 
+  followerRouter.get(
+      '/getVacationFollowsIdsOfUser/:userId',
+        async (request: Request, response: Response, next: NextFunction) => {
+            response.status(200).json(await FollowerLogic.getVacationFollowsOfUser(+request.params.userId));
+        }
+  )
+
 export default followerRouter;

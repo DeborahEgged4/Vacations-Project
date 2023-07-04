@@ -18,6 +18,7 @@ interface IMainRoutingProps {
 }
 
 const MainRouting = (props: IMainRoutingProps) => {
+
     return (
         <div className="MainRouting">
             <Routes>
@@ -30,6 +31,7 @@ const MainRouting = (props: IMainRoutingProps) => {
                 <Route path="*" element={<Page404/>}/>
                 <Route path="/addVacation" element={<AddVacation/>}/>
                 <Route path={'vacationsList'} element={<VacationsList
+                    userId={props.user?.id}
                     isAdmin={props.isAdmin}
                 />}/>
                 <Route path="/editVacation" element={<EditVacation/>}/>

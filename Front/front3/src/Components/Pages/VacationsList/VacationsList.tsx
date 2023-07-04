@@ -68,19 +68,27 @@ import React, { useEffect, useState } from "react";
 import IVacation from "../../../interfaces/Vacation";
 import "./VacationsList.css";
 import ReactPaginate from "react-paginate";
+import Vacation from "../../Vacation/Vacation";
 
-const VacationsList = (props: { isAdmin: boolean }) => {
+const VacationsList = (props: { isAdmin: boolean, userId: number }) => {
   console.log(`props.isAdmin: ${props.isAdmin}`);
-  const [vacations, setVacation] = useState<IVacation[]>([]);
+  const [vacations, setVacations] = useState<IVacation[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const perPage = 10;
 
   const getVacations = async () => {
     try {
-      const response = await fetch("http://localhost:8080/vacation/vacations");
+      const response = await fetch("http://localhost:8080/vacation/getAllVacations");
       const vacationsResponse = await response.json();
+      const vacationsIdsOfFollows = await fetch(`http://localhost:8080/follower/getVacationFollowsIdsOfUser/${props.userId})`);
+        const vacationsIdsOfFollowsResponse = await vacationsIdsOfFollows.json();
+        vacationsResponse.forEach((vacation: IVacation) => {
+            if (vacationsIdsOfFollowsResponse.includes(vacation.vacationId)) {
+                vacation.isFollowed = true;
+            }
+        })
       console.log(vacationsResponse);
-      setVacation(vacationsResponse);
+      setVacations(vacationsResponse);
     } catch (err) {
       console.log(err);
     }
@@ -119,22 +127,17 @@ const VacationsList = (props: { isAdmin: boolean }) => {
         }}
       >
         {currentVacations.map((item, index) => (
-          <div
-            key={index}
-            style={{
-              border: "1px solid black",
-              borderRadius: "10px",
-              width: "200px",
-              backgroundColor: "rgba(169,169,169,0.57)",
-            }}
-          >
-            <h3>Destination:{item.destination}</h3>
-            <img src={item.image} width={"150px"} alt={item.destination} />
-            <p>Description{item.description}</p>
-            <p>Price:{item.price}</p>
-            <p>Start Date: {new Date(item.startDate).toLocaleDateString()}</p>
-            <p>End Date: {new Date(item.endDate).toLocaleDateString()}</p>
-          </div>
+            <Vacation
+                index={index}
+                destination={item.destination}
+                description={item.description}
+                startDate={item.startDate}
+                endDate={item.endDate}
+                image={item.image}
+                price={item.price}
+                isFollowed={item.isFollowed}
+                isAdmin={props.isAdmin}
+            />
         ))}
       </div>
 

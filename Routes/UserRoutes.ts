@@ -19,7 +19,7 @@ userRouter.post(
   "/login",
   async (request: Request, response: Response, next: NextFunction) => {
     const user: User = request.body;
-    const result = await UserLogic.checkUser(user.email, user.password);
+    const result = await UserLogic.login(user.email, user.password);
       console.log(`user from front is: ${JSON.stringify(user)}`)
       console.log(`result from back is: ${result}`);
       console.log(JSON.stringify(result));
@@ -31,13 +31,5 @@ userRouter.post(
   }
 );
 
-userRouter.get(
-  "/checkEmail",
-  async (request: Request, response: Response, next: NextFunction) => {
-    const email = request.body;
-    const result = await UserLogic.checkEmail(email);
-    response.status(200).json(result);
-  }
-);
 
 export default userRouter;
